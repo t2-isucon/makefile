@@ -62,3 +62,8 @@ go.restart: update_config go.build
 
 go.disable: go.stop
 	sudo systemctl disable $(WEBAPP_NAME)
+
+journalctl.vacuum:
+	sudo journalctl --rotate
+	sudo journalctl --vacuum-time=1s
+
