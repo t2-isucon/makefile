@@ -50,11 +50,11 @@ nginx.disable:
 go.stop:
 	sudo systemctl stop $(WEBAPP_NAME)
 
-go.build pull: go.stop
+go.build: pull go.stop
 	cd $(WEBAPP_GO_PATH) && \
 	go build -o $(GO_TARGET_PATH)
 
-go.restart: go.build
+go.restart: update_config go.build
 	sudo systemctl restart $(WEBAPP_NAME)
 
 go.disable: go.stop
