@@ -57,11 +57,15 @@ go.build: pull go.stop
 	cd $(WEBAPP_GO_PATH) && \
 	$(GOBIN) build -o $(GO_TARGET_PATH)
 
-go.restart: update_config go.build
+go.restart: update_config go.build go.enable
 	sudo systemctl restart $(WEBAPP_NAME)
 
 go.disable: go.stop
 	sudo systemctl disable $(WEBAPP_NAME)
+
+go.enable:
+	sudo systemctl enable ${WEBAPP_NAME}
+	sudo systemctl start ${WEBAPP_NAME}
 
 journalctl.vacuum:
 	sudo journalctl --rotate
