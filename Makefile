@@ -10,6 +10,8 @@ WEBAPP_PATH=$(WEBAPP_GO_PATH)/$(SERVICE_NAME)
 
 GO_TARGET_PATH=webapp/go/$(SERVICE_NAME)
 
+GOBIN=/home/isucon/local/go/bin/go
+
 BRANCH:=main
 
 pull:
@@ -52,7 +54,7 @@ go.stop:
 
 go.build: pull go.stop
 	cd $(WEBAPP_GO_PATH) && \
-	go build -o $(GO_TARGET_PATH)
+	$(GOBIN) build -o $(GO_TARGET_PATH)
 
 go.restart: update_config go.build
 	sudo systemctl restart $(WEBAPP_NAME)
