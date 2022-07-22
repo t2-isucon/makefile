@@ -25,6 +25,7 @@ update_config: pull
 	sudo cp "$(WORK_DIR)/nginx/nginx.conf" /etc/nginx/nginx.conf || true
 	sudo cp "$(WORK_DIR)/nginx/sites-enabled/isucondition.conf" /etc/nginx/sites-enabled/isucondition.conf || true
 	sudo cp "$(WORK_DIR)/mysql/my.cnf" /etc/mysql/conf.d/my.cnf || true
+	sudo cp -r "${WORK_DIR}/sql" /home/isucon/webapp
 
 mysql.restart: update_config
 	sudo systemctl restart mysqld
