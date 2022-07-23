@@ -35,13 +35,13 @@ mysql.restart: update_config
 	sudo systemctl restart mysql
 	sudo -u mysql bash -c 'test -f /var/log/mysql/mysql-slow.log && cp /var/log/mysql/mysql-slow.log /var/log/mysql/mysql-slow.log.$(shell date +%s) && echo > /var/log/mysql/mysql-slow.log' || true
 
-# mysql.enable:
-# 	sudo systemctl enable mariadb.servicel
-# 	sudo systemctl start mariadb.service
-#
-# mysql.disable:
-# 	sudo systemctl stop mariadb.service
-# 	sudo systemctl disable mariadb.service
+mysql.enable:
+	sudo systemctl enable mysql.servicel
+	sudo systemctl start mysql.service
+
+mysql.disable:
+	sudo systemctl stop mysql.service
+	sudo systemctl disable mysql.service
 
 nginx.restart: update_config
 	sudo systemctl restart nginx
