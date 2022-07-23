@@ -1,9 +1,9 @@
 SHELL=/bin/bash
 
-SERVICE_NAME=isucondition
-WEBAPP_NAME=isucondition.go
+SERVICE_NAME=isuports
+WEBAPP_NAME=isuports
 
-WORK_DIR=./isucon11-qualify-20220722
+WORK_DIR=./isucon12-qualify
 WEBAPP_GO_PATH=$(WORK_DIR)/webapp/go
 WEBAPP_PATH=$(WEBAPP_GO_PATH)/$(SERVICE_NAME)
 
@@ -21,11 +21,14 @@ pull:
 	git reset --hard origin/$(BRANCH)
 
 update_config: pull
-	sudo cp "$(WORK_DIR)/env.sh" /home/isucon/env.sh
-	sudo cp "$(WORK_DIR)/nginx/nginx.conf" /etc/nginx/nginx.conf || true
-	sudo cp "$(WORK_DIR)/nginx/sites-enabled/isucondition.conf" /etc/nginx/sites-enabled/isucondition.conf || true
-	sudo cp "$(WORK_DIR)/mysql/my.cnf" /etc/mysql/conf.d/my.cnf || true
-	sudo cp -r "${WORK_DIR}/sql" /home/isucon/webapp
+	sudo cp "$(WORK_DIR)/etc/alternatives/my.cnf" /etc/alternatives/my.cnf
+	sudo cp -r "$(WORK_DIR)/etc/mysql/mysql.conf.d" /etc/mysql/mysql.conf.d
+	sudo cp "$(WORK_DIR)/etc/nginx/nginx.conf" /etc/nginx/nginx.conf
+	sudo cp -r "$(WORK_DIR)/etc/nginx/sites-available" /etc/nginx/sites-available
+	sudo cp "$(WORK_DIR)/etc/systemd/system/isuports.service" /etc/systemd/system/isuports.service
+	sudo cp -r "${WORK_DIR}/webapp/sql" /home/isucon/webapp/sql
+	sudo cp "${WORK_DIR}/webapp/docker-compose-go.yml" /home/isucon/webapp/
+	sudo systemctl daemon-reload
 
 mysql.restart: update_config
 	sudo systemctl restart mysqld
@@ -53,11 +56,11 @@ nginx.disable:
 go.stop:
 	sudo systemctl stop $(WEBAPP_NAME)
 
-go.build: pull go.stop
-	cd $(WEBAPP_GO_PATH) && \
-	$(GOBIN) build -o $(GO_TARGET_PATH)
+#go.build: pull go.stop
+#	cd $(WEBAPP_GO_PATH) && \
+#	$(GOBIN) build -o $(GO_TARGET_PATH)
 
-go.restart: update_config go.build go.enable
+go.restart: update_config go.enable
 	sudo systemctl restart $(WEBAPP_NAME)
 
 go.disable: go.stop
