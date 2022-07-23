@@ -22,9 +22,9 @@ pull:
 
 update_config: pull
 	sudo cp "$(WORK_DIR)/etc/alternatives/my.cnf" /etc/alternatives/my.cnf
-	sudo cp -r "$(WORK_DIR)/etc/mysql/mysql.conf.d" /etc/mysql/mysql.conf.d
+	sudo cp -r "$(WORK_DIR)/etc/mysql/mysql.conf.d" /etc/mysql/
 	sudo cp "$(WORK_DIR)/etc/nginx/nginx.conf" /etc/nginx/nginx.conf
-	sudo cp -r "$(WORK_DIR)/etc/nginx/sites-available" /etc/nginx/sites-available
+	sudo cp -r "$(WORK_DIR)/etc/nginx/sites-available" /etc/nginx/
 	sudo cp "$(WORK_DIR)/etc/systemd/system/isuports.service" /etc/systemd/system/isuports.service
 	sudo cp -r "${WORK_DIR}/webapp/go" /home/isucon/webapp/
 	sudo cp -r "${WORK_DIR}/webapp/sql" /home/isucon/webapp/
