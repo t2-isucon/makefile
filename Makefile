@@ -26,8 +26,7 @@ update_config: pull
 	sudo cp "$(WORK_DIR)/etc/nginx/nginx.conf" /etc/nginx/nginx.conf
 	sudo cp -r "$(WORK_DIR)/etc/nginx/sites-available" /etc/nginx/sites-available
 	sudo cp "$(WORK_DIR)/etc/systemd/system/isuports.service" /etc/systemd/system/isuports.service
-	sudo cp -r "${WORK_DIR}/webapp/sql" /home/isucon/webapp/sql
-	sudo cp "${WORK_DIR}/webapp/docker-compose-go.yml" /home/isucon/webapp/
+	sudo cp -r "${WORK_DIR}/webapp" /home/isucon/webapp/
 	sudo systemctl daemon-reload
 
 mysql.restart: update_config
