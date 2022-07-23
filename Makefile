@@ -28,7 +28,7 @@ update_config: pull
 	sudo cp "$(WORK_DIR)/etc/systemd/system/isuports.service" /etc/systemd/system/isuports.service
 	sudo cp -r "${WORK_DIR}/webapp/go" /home/isucon/webapp/
 	sudo cp -r "${WORK_DIR}/webapp/sql" /home/isucon/webapp/
-	sudo cp -r "${WORK_DIR}/webapp/docker-compose-go.yaml" /home/isucon/webapp/
+	sudo cp -r "${WORK_DIR}/webapp/docker-compose-go.yml" /home/isucon/webapp/
 	sudo systemctl daemon-reload
 
 mysql.restart: update_config
