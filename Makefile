@@ -30,7 +30,7 @@ update_config: pull
 	sudo systemctl daemon-reload
 
 mysql.restart: update_config
-	sudo systemctl restart mysqld
+	sudo systemctl restart mysql
 	sudo -u mysql bash -c 'test -f /var/log/mysql/mysql-slow.log && cp /var/log/mysql/mysql-slow.log /var/log/mysql/mysql-slow.log.$(shell date +%s) && echo > /var/log/mysql/mysql-slow.log' || true
 
 # mysql.enable:
